@@ -9,14 +9,14 @@ module.exports = {
       {
         scaffoldEth: {
           primary: "#C69DF7",
-          "primary-content": "#C69DF7",
+          "primary-content": "#ffffff",
           secondary: "#38112f",
           "secondary-content": "#ffffff",
           accent: "#181818",
           "accent-content": "#212638",
           neutral: "#d572e0",
           "neutral-content": "#ffffff",
-          "base-100": "#212121",
+          "base-100": "#171717",
           "base-200": "#000000",
           "base-300": "#444444",
           "base-content": "#ffd4f5",
