@@ -89,6 +89,7 @@ const Home: NextPage = () => {
     }
     if (!isAddress(inputAddress)) {
       notification.error("Please enter a valid address");
+      return;
     }
     const base64EncodedPaylod = window.btoa(
       JSON.stringify({ account: address, signature: signMessageData, pcd: proof.pcd }),
