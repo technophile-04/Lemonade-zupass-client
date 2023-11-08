@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { ArgumentTypeName } from "@pcd/pcd-types";
 import { SemaphoreIdentityPCDPackage } from "@pcd/semaphore-identity-pcd";
@@ -9,6 +9,8 @@ import { AddSubscriptionURL } from "~~/components/AddSubscriptionURL";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { SignMessageButton } from "~~/components/SignMessageButton";
 import { notification } from "~~/utils/scaffold-eth";
+
+const API_BASE_URL = "http://192.168.1.233:4000";
 
 const pcdArgs = {
   identity: {
@@ -44,28 +46,44 @@ function constructZupassPcdGetRequestUrl(
 }
 
 const Home: NextPage = () => {
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
   const { openConnectModal } = useConnectModal();
 
   const { query } = useRouter();
+  const [messageToSign, setMessageToSign] = useState("");
 
   const proof = query && query.proof && JSON.parse(decodeURIComponent(query.proof as string));
 
   useEffect(() => {
-    const doDeserialization = async () => {
-      const deserialized = proof && (await SemaphoreIdentityPCDPackage.deserialize(proof.pcd));
-      const verified = await SemaphoreIdentityPCDPackage.verify(deserialized);
-      console.log("PRC IS:", JSON.parse(proof.pcd));
-      notification.success("Verfied");
-      console.log("Deserialized", deserialized);
-      console.log("Commitment", deserialized.claim.identity.commitment);
-      console.log("verified", verified);
+    const getSigningMessage = async () => {
+      try {
+        if (!address) {
+          notification.error("Please connect your wallet");
+          return;
+        }
+        console.log("The connected address is", address);
+        const base64EncodedPCD = window.btoa(proof.pcd);
+        console.log("Base64 encoded PCD is", base64EncodedPCD);
+        const response = await fetch(`${API_BASE_URL}/message?account=${address}&pcd=${base64EncodedPCD}`);
+        const resJson = await response.json();
+        console.log("The message received is", resJson.message);
+        setMessageToSign(resJson.message);
+        notification.success(
+          <>
+            <p className="font-bold m-0">Proof received!</p>
+            <p className="m-0">Please sign the message</p>
+          </>,
+        );
+      } catch (e) {
+        console.log("Error while receiving message", e);
+        notification.error("Error while receiving message");
+      }
     };
-    if (proof) {
-      doDeserialization();
+    if (proof && address) {
+      getSigningMessage();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [JSON.stringify(proof)]);
+  }, [JSON.stringify(proof), address]);
 
   return (
     <>
@@ -80,24 +98,26 @@ const Home: NextPage = () => {
           </div>
           {isConnected ? (
             <>
-              <SignMessageButton />
-              <button
-                className="btn btn-primary btn-outline m-4"
-                onClick={() => {
-                  const result = constructZupassPcdGetRequestUrl(
-                    "https://zupass.org",
-                    "http://localhost:3000/",
-                    SemaphoreIdentityPCDPackage.name,
-                    pcdArgs,
-                  );
+              {messageToSign && <SignMessageButton message={messageToSign} />}
+              {!proof && (
+                <button
+                  className="btn btn-primary btn-outline m-4"
+                  onClick={() => {
+                    const result = constructZupassPcdGetRequestUrl(
+                      "https://zupass.org",
+                      "http://localhost:3000/",
+                      SemaphoreIdentityPCDPackage.name,
+                      pcdArgs,
+                    );
 
-                  console.log("result", result);
+                    console.log("result", result);
 
-                  window.location.href = result; //or you could have a pop up but it's more complicated
-                }}
-              >
-                Get proof
-              </button>
+                    window.location.href = result; //or you could have a pop up but it's more complicated
+                  }}
+                >
+                  Get proof
+                </button>
+              )}
             </>
           ) : (
             <button className="btn btn-primary btn-outline" onClick={openConnectModal}>
