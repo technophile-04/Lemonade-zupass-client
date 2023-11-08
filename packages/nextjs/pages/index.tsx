@@ -156,7 +156,7 @@ const Home: NextPage = () => {
                   onClick={() => {
                     const result = constructZupassPcdGetRequestUrl(
                       "https://zupass.org",
-                      "http://localhost:3000/",
+                      "https://lemonade-zupass.vercel.app/",
                       SemaphoreIdentityPCDPackage.name,
                       pcdArgs,
                     );
