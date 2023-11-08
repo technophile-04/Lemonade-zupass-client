@@ -64,9 +64,6 @@ const Home: NextPage = () => {
     isSuccess: isSigningMessageSuccessfull,
   } = useSignMessage({
     message: messageToSign,
-    onSuccess: () => {
-      generateSubscriptionURL();
-    },
   });
 
   const proof = query && query.proof && JSON.parse(decodeURIComponent(query.proof as string));
@@ -157,7 +154,9 @@ const Home: NextPage = () => {
                   onClick={() => {
                     const result = constructZupassPcdGetRequestUrl(
                       "https://zupass.org",
-                      "https://lemonade-zupass.vercel.app/",
+                      process.env.NEXT_PUBLIC_VERCEL_URL
+                        ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/`
+                        : "http://localhost:3000",
                       SemaphoreIdentityPCDPackage.name,
                       pcdArgs,
                     );
