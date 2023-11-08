@@ -103,6 +103,12 @@ const Home: NextPage = () => {
           notification.error("Please connect your wallet");
           return;
         }
+
+        const deserialized = proof && (await SemaphoreIdentityPCDPackage.deserialize(proof.pcd));
+        console.log("Deserialized is", deserialized);
+        const verified = await SemaphoreIdentityPCDPackage.verify(deserialized);
+        console.log("Verified is", verified);
+        console.log("PRC IS:", JSON.parse(proof.pcd));
         console.log("The connected address is", address);
         const base64EncodedPCD = window.btoa(proof.pcd);
         console.log("Base64 encoded PCD is", base64EncodedPCD);
@@ -154,9 +160,7 @@ const Home: NextPage = () => {
                   onClick={() => {
                     const result = constructZupassPcdGetRequestUrl(
                       "https://zupass.org",
-                      process.env.NEXT_PUBLIC_VERCEL_URL
-                        ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/`
-                        : "http://localhost:3000",
+                      "https://lemonade-zupass.vercel.app/",
                       SemaphoreIdentityPCDPackage.name,
                       pcdArgs,
                     );
