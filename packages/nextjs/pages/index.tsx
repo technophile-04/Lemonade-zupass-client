@@ -4,12 +4,14 @@ import { ArgumentTypeName } from "@pcd/pcd-types";
 import { SemaphoreIdentityPCDPackage } from "@pcd/semaphore-identity-pcd";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import type { NextPage } from "next";
+import { isAddress } from "viem";
 import { mainnet, useAccount, useSignMessage } from "wagmi";
 import { AddSubscriptionURL } from "~~/components/AddSubscriptionURL";
 import { MetaHeader } from "~~/components/MetaHeader";
+import { AddressInput } from "~~/components/scaffold-eth";
 import { notification } from "~~/utils/scaffold-eth";
 
-const BAYC_ADDRESS = "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D";
+// const BAYC_ADDRESS = "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D";
 const API_BASE_URL = "http://192.168.1.233:4000";
 
 const pcdArgs = {
@@ -52,6 +54,7 @@ const Home: NextPage = () => {
   const { query } = useRouter();
   const [messageToSign, setMessageToSign] = useState("");
   const [subscriptionURL, setSubscriptionURL] = useState("");
+  const [inputAddress, setInputAddress] = useState("");
 
   const {
     data: signMessageData,
@@ -80,12 +83,18 @@ const Home: NextPage = () => {
   };
 
   const generateSubscriptionURL = () => {
-    if (!proof) return;
+    if (!proof) {
+      notification.error("Please get the proof first");
+      return;
+    }
+    if (!isAddress(inputAddress)) {
+      notification.error("Please enter a valid address");
+    }
     const base64EncodedPaylod = window.btoa(
       JSON.stringify({ account: address, signature: signMessageData, pcd: proof.pcd }),
     );
 
-    const url = `${API_BASE_URL}/feeds/${mainnet.id}/${BAYC_ADDRESS}/${base64EncodedPaylod}`;
+    const url = `${API_BASE_URL}/feeds/${mainnet.id}/${inputAddress}/${base64EncodedPaylod}`;
     setSubscriptionURL(url);
   };
 
@@ -126,7 +135,7 @@ const Home: NextPage = () => {
       <div className="flex items-center flex-col p-10 space-y-8">
         <div className="bg-base-100 flex items-center flex-col p-5 rounded-2xl">
           <div className="px-5 text-white">
-            <h1 className="text-center mb-8">
+            <h1 className="text-center mb-4">
               <span className="block text-2xl mb-2">Welcome to</span>
               <span className="block text-4xl font-bold">Lemonade ZuPass NFT Verification</span>
             </h1>
@@ -143,7 +152,7 @@ const Home: NextPage = () => {
               )}
               {!proof && (
                 <button
-                  className="btn btn-primary btn-outline m-4"
+                  className="btn btn-primary btn-outline"
                   onClick={() => {
                     const result = constructZupassPcdGetRequestUrl(
                       "https://zupass.org",
@@ -165,6 +174,14 @@ const Home: NextPage = () => {
             <button className="btn btn-primary btn-outline" onClick={openConnectModal}>
               Connect Wallet
             </button>
+          )}
+          {isConnected && isSigningMessageSuccessfull && (
+            <div className="flex flex-col space-y-4">
+              <AddressInput onChange={setInputAddress} value={inputAddress} placeholder="Enter NFT contract Address" />
+              <button className="btn btn-primary btn-outline" onClick={() => generateSubscriptionURL()}>
+                Get subscription URL
+              </button>
+            </div>
           )}
         </div>
         {isSigningMessageSuccessfull && isConnected && subscriptionURL && (
