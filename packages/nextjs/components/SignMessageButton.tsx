@@ -40,7 +40,7 @@ export const SignMessageButton = () => {
 
   return (
     <>
-      <button className={`btn btn-primary ${isLoading ? "loading" : ""}`} onClick={() => handleSign()}>
+      <button className={`btn btn-primary bg-opacity-25 ${isLoading ? "loading" : ""}`} onClick={() => handleSign()}>
         {isLoading ? "Check Wallet" : "Sign Message"}
       </button>
       {signMessageData && (

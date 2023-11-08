@@ -65,30 +65,32 @@ const Home: NextPage = () => {
     <>
       <MetaHeader />
       <div className="flex items-center flex-col flex-grow pt-10">
-        <div className="px-5">
-          <h1 className="text-center mb-8">
-            <span className="block text-2xl mb-2">Welcome to</span>
-            <span className="block text-4xl font-bold">Lemonade ZuPass NFT Verification</span>
-          </h1>
+        <div className="bg-base-100 flex items-center flex-col p-5 rounded-2xl">
+          <div className="px-5">
+            <h1 className="text-center mb-8">
+              <span className="block text-2xl mb-2">Welcome to</span>
+              <span className="block text-4xl font-bold">Lemonade ZuPass NFT Verification</span>
+            </h1>
+          </div>
+          <SignMessageButton />
+          <button
+            className="btn btn-primary bg-opacity-25  m-4"
+            onClick={() => {
+              const result = constructZupassPcdGetRequestUrl(
+                "https://zupass.org",
+                "http://localhost:3000/",
+                SemaphoreIdentityPCDPackage.name,
+                pcdArgs,
+              );
+
+              console.log("result", result);
+
+              window.location.href = result; //or you could have a pop up but it's more complicated
+            }}
+          >
+            Get proof
+          </button>
         </div>
-        <SignMessageButton />
-        <button
-          className="btn btn-primary m-4"
-          onClick={() => {
-            const result = constructZupassPcdGetRequestUrl(
-              "https://zupass.org",
-              "http://localhost:3000/",
-              SemaphoreIdentityPCDPackage.name,
-              pcdArgs,
-            );
-
-            console.log("result", result);
-
-            window.location.href = result; //or you could have a pop up but it's more complicated
-          }}
-        >
-          Get proof
-        </button>
       </div>
     </>
   );
