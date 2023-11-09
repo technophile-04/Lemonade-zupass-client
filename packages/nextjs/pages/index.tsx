@@ -180,7 +180,7 @@ const Home: NextPage = () => {
           )}
           {isConnected && isSigningMessageSuccessfull && (
             <div className="flex flex-col space-y-4">
-              <AddressInput onChange={setInputAddress} value={inputAddress} placeholder="Enter NFT contract Address" />
+              <AddressInput onChange={setInputAddress} value={inputAddress} placeholder="Contract address" />
               <button className="btn btn-primary btn-outline" onClick={() => generateSubscriptionURL()}>
                 Get subscription URL
               </button>
