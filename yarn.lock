@@ -913,7 +913,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ethersproject/strings@npm:5.7.0, @ethersproject/strings@npm:^5.6.1, @ethersproject/strings@npm:^5.7.0":
+"@ethersproject/strings@npm:5.7.0, @ethersproject/strings@npm:^5.5.0, @ethersproject/strings@npm:^5.6.1, @ethersproject/strings@npm:^5.7.0":
   version: 5.7.0
   resolution: "@ethersproject/strings@npm:5.7.0"
   dependencies:
@@ -1889,7 +1889,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pcd/semaphore-identity-pcd@npm:^0.8.0":
+"@pcd/semaphore-identity-pcd@npm:0.8.0, @pcd/semaphore-identity-pcd@npm:^0.8.0":
   version: 0.8.0
   resolution: "@pcd/semaphore-identity-pcd@npm:0.8.0"
   dependencies:
@@ -1902,6 +1902,25 @@ __metadata:
     styled-components: ^5.3.9
     uuid: ^9.0.0
   checksum: 6273e531bb6d1e2947fc3b8e26844b87644de893f723a8817c16eda8306f6d28fb5519ad4e3ff3b70b0303e59a67084aef90d7fac68fc46ad8fa0ae730facf6d
+  languageName: node
+  linkType: hard
+
+"@pcd/semaphore-signature-pcd@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "@pcd/semaphore-signature-pcd@npm:0.8.0"
+  dependencies:
+    "@pcd/passport-ui": 0.8.0
+    "@pcd/pcd-types": 0.8.0
+    "@pcd/semaphore-identity-pcd": 0.8.0
+    "@pcd/util": 0.2.0
+    "@semaphore-protocol/group": ^3.14.0
+    "@semaphore-protocol/identity": ^3.14.0
+    "@semaphore-protocol/proof": ^3.14.0
+    json-bigint: ^1.0.0
+    react: ^18.2.0
+    styled-components: ^5.3.9
+    uuid: ^9.0.0
+  checksum: c8e03ea566c0010535fabf830b95adc765f6f6b60b23b2d52d23342d67bbae28c0bb6ec3ff3f0750c39db25319d4e65c0a511c2da9a90f00a81f0c0291bdc504
   languageName: node
   linkType: hard
 
@@ -2122,6 +2141,7 @@ __metadata:
     "@heroicons/react": ^2.0.11
     "@pcd/pcd-types": ^0.8.0
     "@pcd/semaphore-identity-pcd": ^0.8.0
+    "@pcd/semaphore-signature-pcd": ^0.8.0
     "@rainbow-me/rainbowkit": 1.1.2
     "@trivago/prettier-plugin-sort-imports": ^4.1.1
     "@types/json-bigint": ^1.0.4
@@ -2163,6 +2183,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@semaphore-protocol/group@npm:^3.14.0":
+  version: 3.15.0
+  resolution: "@semaphore-protocol/group@npm:3.15.0"
+  dependencies:
+    "@ethersproject/bignumber": ^5.7.0
+    "@ethersproject/bytes": ^5.7.0
+    "@ethersproject/keccak256": ^5.7.0
+    "@zk-kit/incremental-merkle-tree": 1.1.0
+  checksum: 029455ab05f7a379ff4c06decd107ea0c0ed8dff6de5df38795775f1231cde0a1d396e6d91d56172992a4db49bf0c573929f4f3864d73d644565afb51a1e28b9
+  languageName: node
+  linkType: hard
+
 "@semaphore-protocol/identity@npm:^3.14.0":
   version: 3.15.0
   resolution: "@semaphore-protocol/identity@npm:3.15.0"
@@ -2173,6 +2205,23 @@ __metadata:
     "@ethersproject/strings": ^5.6.1
     js-sha512: ^0.8.0
   checksum: 2c2374d3e08d70e4108c4db6fd1064dfd94b3ac7a4e91b093a24c180427798988b56c4c027895ed1fbffa4afbc0dd23d8b909b9375972981cdebc7dc30e6b1b1
+  languageName: node
+  linkType: hard
+
+"@semaphore-protocol/proof@npm:^3.14.0":
+  version: 3.15.0
+  resolution: "@semaphore-protocol/proof@npm:3.15.0"
+  dependencies:
+    "@ethersproject/bignumber": ^5.5.0
+    "@ethersproject/bytes": ^5.7.0
+    "@ethersproject/keccak256": ^5.7.0
+    "@ethersproject/strings": ^5.5.0
+    "@zk-kit/groth16": 0.1.0
+    "@zk-kit/incremental-merkle-tree": 0.4.3
+  peerDependencies:
+    "@semaphore-protocol/group": 3.15.0
+    "@semaphore-protocol/identity": 3.15.0
+  checksum: 850da04d9928f69c6e6b25e00673ab9ca589e8c46d60560d44e83995fa73cd0171cb57204a27c234b5d09d4fb5f48ea26de25f0a6be002f106a439a811d156f4
   languageName: node
   linkType: hard
 
@@ -4060,6 +4109,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@zk-kit/groth16@npm:0.1.0":
+  version: 0.1.0
+  resolution: "@zk-kit/groth16@npm:0.1.0"
+  dependencies:
+    circom_runtime: 0.1.24
+    ffjavascript: 0.2.60
+  checksum: ee3b7ef6dbcd1c4a2a0df23c6204878a8b331ff38b38bef7a939c397fdd68381d8d4a3e6fd259ffe1f724027ddee13a3f8f1b6e83ee944fb70478f591aefd205
+  languageName: node
+  linkType: hard
+
+"@zk-kit/incremental-merkle-tree@npm:0.4.3":
+  version: 0.4.3
+  resolution: "@zk-kit/incremental-merkle-tree@npm:0.4.3"
+  checksum: 582ef97bd2b1b9638ce7c8a941200a5cf0ab86975f767de233905e8af0ff72d31b44f2497595f0ff585e45c7491481cf4e027ee6486a136cd64498d4b16b3e29
+  languageName: node
+  linkType: hard
+
+"@zk-kit/incremental-merkle-tree@npm:1.1.0":
+  version: 1.1.0
+  resolution: "@zk-kit/incremental-merkle-tree@npm:1.1.0"
+  checksum: 5f2d6dd2a4898aa75f72d5b3811ab965c369f0a51561250313849fb9a6a1163064c4887da3bea298d25e80a4bc79b3c6997edf6492a6a8fc157512bc3fcb5e23
+  languageName: node
+  linkType: hard
+
 "JSONStream@npm:1.3.2":
   version: 1.3.2
   resolution: "JSONStream@npm:1.3.2"
@@ -5391,6 +5464,17 @@ __metadata:
     inherits: ^2.0.1
     safe-buffer: ^5.0.1
   checksum: 47d3568dbc17431a339bad1fe7dff83ac0891be8206911ace3d3b818fc695f376df809bea406e759cdea07fff4b454fa25f1013e648851bec790c1d75763032e
+  languageName: node
+  linkType: hard
+
+"circom_runtime@npm:0.1.24":
+  version: 0.1.24
+  resolution: "circom_runtime@npm:0.1.24"
+  dependencies:
+    ffjavascript: 0.2.60
+  bin:
+    calcwit: calcwit.js
+  checksum: 0654649ed64ace5562cec025648422970df885e79048b7942e283ef50f43142673acfd752ac2851917a81c43d4d42d37f5fdfc8df71d59ee81b873c19ea81a31
   languageName: node
   linkType: hard
 
@@ -7551,6 +7635,17 @@ __metadata:
   dependencies:
     reusify: ^1.0.4
   checksum: 32cf15c29afe622af187d12fc9cd93e160a0cb7c31a3bb6ace86b7dea3b28e7b72acde89c882663f307b2184e14782c6c664fa315973c03626c7d4bff070bb0b
+  languageName: node
+  linkType: hard
+
+"ffjavascript@npm:0.2.60":
+  version: 0.2.60
+  resolution: "ffjavascript@npm:0.2.60"
+  dependencies:
+    wasmbuilder: 0.0.16
+    wasmcurves: 0.2.2
+    web-worker: ^1.2.0
+  checksum: 5dbd597ee108373af1ba1877757a08b47db4bcd7b3b043b260d4475a0b1125454de00fb214224f85d9e6e6a6c0a1cfabd1ba9a2b68279b99c581404266e78138
   languageName: node
   linkType: hard
 
@@ -14282,6 +14377,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"wasmbuilder@npm:0.0.16":
+  version: 0.0.16
+  resolution: "wasmbuilder@npm:0.0.16"
+  checksum: a9c8ef4a0a770f71865dc7a75bc22e5204227ff6d70bed90e57f7df5939a013d4177947ea4c2c3fdfe6761b92d975908ea846c463ee635d1c95e1a3c434b7ee1
+  languageName: node
+  linkType: hard
+
+"wasmcurves@npm:0.2.2":
+  version: 0.2.2
+  resolution: "wasmcurves@npm:0.2.2"
+  dependencies:
+    wasmbuilder: 0.0.16
+  checksum: 95ca8afe3816862f16d4f8f4cbed4a4fb522be03a41af3cf7d65429bcac9ff4ccbc6e02762dd14933f0e5903cfb93d15cf31fc4acc953f3fcdb31190eba969e8
+  languageName: node
+  linkType: hard
+
 "watchpack@npm:2.4.0":
   version: 2.4.0
   resolution: "watchpack@npm:2.4.0"
@@ -14296,6 +14407,13 @@ __metadata:
   version: 0.2.4
   resolution: "web-vitals@npm:0.2.4"
   checksum: 128a4e87730b0a02fb6af3eef7d31f9a79b4646e83cfe4465aa8ce6054fe16f7b1f4125a384f1b4f039091bd9513cb54b4e559c0b10ae953c01900786a16b1c2
+  languageName: node
+  linkType: hard
+
+"web-worker@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "web-worker@npm:1.2.0"
+  checksum: 1bb28348ddcf9b2e7c62c5fd02e49a84098795856cd905456de957271bba288e9618941cf69d8960f0a7ae81f5dfb74b427c0634be47ec69e3e955c4ec5213be
   languageName: node
   linkType: hard
 

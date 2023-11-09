@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { ArgumentTypeName } from "@pcd/pcd-types";
-import { SemaphoreIdentityPCDPackage } from "@pcd/semaphore-identity-pcd";
+import { SemaphoreSignaturePCDPackage } from "@pcd/semaphore-signature-pcd";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import type { NextPage } from "next";
 import { isAddress } from "viem";
@@ -17,15 +17,14 @@ const API_BASE_URL = "http://192.168.1.233:4000";
 const pcdArgs = {
   identity: {
     argumentType: ArgumentTypeName.PCD,
-    pcdType: SemaphoreIdentityPCDPackage.name,
+    pcdType: SemaphoreSignaturePCDPackage.name,
     value: undefined,
     userProvided: true,
   },
-  fieldsToReveal: {
-    argumentType: ArgumentTypeName.ToggleList,
-    value: {},
+  signedMessage: {
+    argumentType: ArgumentTypeName.String,
+    value: "Hello",
     userProvided: false,
-    hideIcon: true,
   },
 };
 
@@ -104,9 +103,9 @@ const Home: NextPage = () => {
           return;
         }
 
-        const deserialized = proof && (await SemaphoreIdentityPCDPackage.deserialize(proof.pcd));
+        const deserialized = proof && (await SemaphoreSignaturePCDPackage.deserialize(proof.pcd));
         console.log("Deserialized is", deserialized);
-        const verified = await SemaphoreIdentityPCDPackage.verify(deserialized);
+        const verified = await SemaphoreSignaturePCDPackage.verify(deserialized);
         console.log("Verified is", verified);
         console.log("PRC IS:", JSON.parse(proof.pcd));
         console.log("The connected address is", address);
@@ -160,8 +159,8 @@ const Home: NextPage = () => {
                   onClick={() => {
                     const result = constructZupassPcdGetRequestUrl(
                       "https://zupass.org",
-                      "https://lemonade-zupass.vercel.app/",
-                      SemaphoreIdentityPCDPackage.name,
+                      "http://localhost:3000/",
+                      SemaphoreSignaturePCDPackage.name,
                       pcdArgs,
                     );
 
