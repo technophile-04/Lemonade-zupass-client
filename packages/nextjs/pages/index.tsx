@@ -12,7 +12,7 @@ import { AddressInput } from "~~/components/scaffold-eth";
 import { notification } from "~~/utils/scaffold-eth";
 
 // const BAYC_ADDRESS = "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D";
-const API_BASE_URL = "http://192.168.1.233:4000";
+const API_BASE_URL = "https://cognitive-camp-minerals-nick.trycloudflare.com";
 
 const pcdArgs = {
   identity: {
