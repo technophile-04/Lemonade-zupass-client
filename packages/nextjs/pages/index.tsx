@@ -204,6 +204,11 @@ const Home: NextPage = () => {
               </p>
             </div>
             <AddSubscriptionURL url={subscriptionURL} />
+            <iframe
+              src="https://zupass.org/#/add-subscription"
+              title="Zupass add subscription"
+              className="mt-5 w-full h-[400px] md:h-[600px] rounded-2xl"
+            ></iframe>
           </div>
         )}
       </div>
