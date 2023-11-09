@@ -11,7 +11,6 @@ import { MetaHeader } from "~~/components/MetaHeader";
 import { AddressInput } from "~~/components/scaffold-eth";
 import { notification } from "~~/utils/scaffold-eth";
 
-// const BAYC_ADDRESS = "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D";
 const API_BASE_URL = "https://cognitive-camp-minerals-nick.trycloudflare.com";
 
 const pcdArgs = {
@@ -103,17 +102,9 @@ const Home: NextPage = () => {
           return;
         }
 
-        const deserialized = proof && (await SemaphoreSignaturePCDPackage.deserialize(proof.pcd));
-        console.log("Deserialized is", deserialized);
-        const verified = await SemaphoreSignaturePCDPackage.verify(deserialized);
-        console.log("Verified is", verified);
-        console.log("PRC IS:", JSON.parse(proof.pcd));
-        console.log("The connected address is", address);
         const base64EncodedPCD = window.btoa(proof.pcd);
-        console.log("Base64 encoded PCD is", base64EncodedPCD);
         const response = await fetch(`${API_BASE_URL}/message?account=${address}&pcd=${base64EncodedPCD}`);
         const resJson = await response.json();
-        console.log("The message received is", resJson.message);
         setMessageToSign(resJson.message);
         notification.success(
           <>
