@@ -11,7 +11,7 @@ import { MetaHeader } from "~~/components/MetaHeader";
 import { AddressInput } from "~~/components/scaffold-eth";
 import { notification } from "~~/utils/scaffold-eth";
 
-const API_BASE_URL = "https://cognitive-camp-minerals-nick.trycloudflare.com";
+const API_BASE_URL = "https://cognitive-camp-minerals-nick.trycloudflare.com/nft";
 
 const pcdArgs = {
   identity: {
