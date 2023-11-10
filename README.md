@@ -2,8 +2,6 @@
 
 This is the client for Lemonade Zupass, it helps you generate a feed subscription which can be added to zupass.org. It also helps verifying the NFT and Event ticket on frontend.
 
-![Debug Contracts tab](https://github.com/scaffold-eth/scaffold-eth-2/assets/55535804/1171422a-0ce4-4203-bcd4-d2d1941d198b)
-
 ## Requirements
 
 Before you begin, you need to install the following tools:
