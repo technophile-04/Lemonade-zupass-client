@@ -1,3 +1,5 @@
+// TODO: Eventticket flow
+// TODO: List all the Top NFTs and verify
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { ArgumentTypeName } from "@pcd/pcd-types";
@@ -9,9 +11,10 @@ import { mainnet, useAccount, useSignMessage } from "wagmi";
 import { AddSubscriptionURL } from "~~/components/AddSubscriptionURL";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { AddressInput } from "~~/components/scaffold-eth";
+import { constructZupassPcdGetRequestUrl } from "~~/utils";
 import { notification } from "~~/utils/scaffold-eth";
 
-const API_BASE_URL = "https://cognitive-camp-minerals-nick.trycloudflare.com/nft";
+const API_BASE_URL = "https://zupass.lemonade.social/nft";
 
 const pcdArgs = {
   identity: {
@@ -26,24 +29,6 @@ const pcdArgs = {
     userProvided: false,
   },
 };
-
-function constructZupassPcdGetRequestUrl(
-  zupassClientUrl: string,
-  returnUrl: string,
-  pcdType: any,
-  args: any,
-  options?: any,
-) {
-  const req: any = {
-    type: "Get",
-    returnUrl: returnUrl,
-    args: args,
-    pcdType,
-    options,
-  };
-  const encReq = encodeURIComponent(JSON.stringify(req));
-  return `${zupassClientUrl}#/prove?request=${encReq}`;
-}
 
 const Home: NextPage = () => {
   const { isConnected, address } = useAccount();
@@ -90,7 +75,7 @@ const Home: NextPage = () => {
       JSON.stringify({ account: address, signature: signMessageData, pcd: proof.pcd }),
     );
 
-    const url = `${API_BASE_URL}/feeds/${mainnet.id}/${inputAddress}/${base64EncodedPaylod}`;
+    const url = `${API_BASE_URL}/${mainnet.id}/${inputAddress}/${base64EncodedPaylod}`;
     setSubscriptionURL(url);
   };
 
@@ -131,7 +116,7 @@ const Home: NextPage = () => {
           <div className="px-5 text-white">
             <h1 className="text-center mb-4">
               <span className="block text-2xl mb-2">Welcome to</span>
-              <span className="block text-4xl font-bold">Lemonade ZuPass NFT Verification</span>
+              <span className="block text-4xl font-bold">Lemonade ZuPass NFT</span>
             </h1>
           </div>
           {isConnected ? (
