@@ -111,80 +111,99 @@ const Home: NextPage = () => {
   return (
     <>
       <MetaHeader />
-      <div className="flex items-center flex-col p-10 space-y-8">
-        <div className="bg-base-100 flex items-center flex-col p-5 rounded-2xl">
-          <div className="px-5 text-white">
-            <h1 className="text-center mb-4">
-              <span className="block text-2xl mb-2">Welcome to</span>
-              <span className="block text-4xl font-bold">Lemonade ZuPass NFT</span>
-            </h1>
+      <div className="flex items-center flex-col p-10 space-y-8 rounded-2xl">
+        {isSigningMessageSuccessfull && isConnected ? (
+          <div className="bg-base-100 flex flex-col p-5 rounded-2xl min-h-[75vh] w-2/4 space-y-6">
+            <div className="bg-base-300 p-5 rounded-2xl">
+              <div>
+                <h1 className="text-3xl m-0 text-white font-semibold">Subscription</h1>
+                <p className="text-sm text-gray-500 m-1">Follow your favourite collections</p>
+              </div>
+              <div className="flex flex-col space-y-2">
+                <p className="text-sm text-gray-500 m-1">What are you looking for?</p>
+                <AddressInput onChange={setInputAddress} value={inputAddress} placeholder="Contract address" />
+                <button className="btn btn-primary btn-outline" onClick={() => generateSubscriptionURL()}>
+                  Get subscription URL
+                </button>
+              </div>
+            </div>
+            {isConnected && subscriptionURL && (
+              <div className="bg-base-300 flex flex-col p-5 rounded-2xl space-y-4">
+                <div>
+                  <h1 className="text-3xl m-0 text-white font-semibold">Success 🥳!</h1>
+                  <p className="text-sm text-gray-500 mt-1">
+                    Please copy the below URL and paste it at{"  "}
+                    <a
+                      href="https://zupass.org/#/add-subscription"
+                      className="underline-offset-4 underline text-primary"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      https://zupass.org/add-subscription
+                    </a>
+                  </p>
+                </div>
+                <AddSubscriptionURL url={subscriptionURL} />
+                {/* <iframe
+                  src="https://zupass.org/#/add-subscription"
+                  title="Zupass add subscription"
+                  className="mt-5 w-full h-[400px] md:h-[600px] rounded-2xl"
+                ></iframe> */}
+              </div>
+            )}
           </div>
-          {isConnected ? (
-            <>
-              {messageToSign && !isSigningMessageSuccessfull && (
-                <button
-                  className={`btn btn-primary btn-outline ${isLoading ? "loading" : ""}`}
-                  onClick={() => handleSign()}
-                >
-                  {isLoading ? "Check Wallet" : "Sign Message"}
-                </button>
-              )}
-              {!proof && (
-                <button
-                  className="btn btn-primary btn-outline"
-                  onClick={() => {
-                    const result = constructZupassPcdGetRequestUrl(
-                      "https://zupass.org",
-                      `${window.location.href}`,
-                      SemaphoreSignaturePCDPackage.name,
-                      pcdArgs,
-                    );
-
-                    console.log("result", result);
-
-                    window.location.href = result; //or you could have a pop up but it's more complicated
-                  }}
-                >
-                  Get proof
-                </button>
-              )}
-            </>
-          ) : (
-            <button className="btn btn-primary btn-outline" onClick={openConnectModal}>
-              Connect Wallet
-            </button>
-          )}
-          {isConnected && isSigningMessageSuccessfull && (
-            <div className="flex flex-col space-y-4">
-              <AddressInput onChange={setInputAddress} value={inputAddress} placeholder="Contract address" />
-              <button className="btn btn-primary btn-outline" onClick={() => generateSubscriptionURL()}>
-                Get subscription URL
-              </button>
-            </div>
-          )}
-        </div>
-        {isSigningMessageSuccessfull && isConnected && subscriptionURL && (
-          <div className="bg-base-100 flex items-center flex-col p-5 rounded-2xl">
+        ) : (
+          <div className="bg-base-100 flex items-center justify-center flex-col p-5 rounded-2xl min-h-[75vh] w-2/4 space-y-4">
             <div className="px-5 text-white">
-              <p className="text-2xl mb-2 text-center">Success 🥳!</p>
-              <p className="text-xl">
-                Please copy the below URL and paste it at{" "}
-                <a
-                  href="https://zupass.org/#/add-subscription"
-                  className="underline-offset-4 underline"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  https://zupass.org/add-subscription
-                </a>
-              </p>
+              <h1 className="text-center mb-4">
+                <span className="block text-2xl mb-2">Welcome to</span>
+                <span className="block text-4xl font-bold">Lemonade ZuPass</span>
+                <span className="block text-4xl font-bold">NFT</span>
+              </h1>
             </div>
-            <AddSubscriptionURL url={subscriptionURL} />
-            <iframe
-              src="https://zupass.org/#/add-subscription"
-              title="Zupass add subscription"
-              className="mt-5 w-full h-[400px] md:h-[600px] rounded-2xl"
-            ></iframe>
+            {isConnected ? (
+              <>
+                {messageToSign && !isSigningMessageSuccessfull && (
+                  <button
+                    className={`btn btn-primary btn-outline ${isLoading ? "loading" : ""}`}
+                    onClick={() => handleSign()}
+                  >
+                    {isLoading ? "Check Wallet" : "Sign Message"}
+                  </button>
+                )}
+                {!proof && (
+                  <button
+                    className="btn btn-primary btn-outline"
+                    onClick={() => {
+                      const result = constructZupassPcdGetRequestUrl(
+                        "https://zupass.org",
+                        `${window.location.href}`,
+                        SemaphoreSignaturePCDPackage.name,
+                        pcdArgs,
+                      );
+
+                      console.log("result", result);
+
+                      window.location.href = result; //or you could have a pop up but it's more complicated
+                    }}
+                  >
+                    Get proof
+                  </button>
+                )}
+              </>
+            ) : (
+              <button className="btn btn-primary btn-outline" onClick={openConnectModal}>
+                Connect Wallet
+              </button>
+            )}
+            {isConnected && isSigningMessageSuccessfull && (
+              <div className="flex flex-col space-y-4">
+                <AddressInput onChange={setInputAddress} value={inputAddress} placeholder="Contract address" />
+                <button className="btn btn-primary btn-outline" onClick={() => generateSubscriptionURL()}>
+                  Get subscription URL
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>

@@ -114,7 +114,7 @@ export const AddressInput = ({
         }
       />
       {withAddressBook && showAddressBook && (
-        <ol className="mt-2 bg-base-200 p-4 text-accent-acontent rounded-3xl space-y-4 max-h-[100px] overflow-y-scroll">
+        <ol className="mt-2 bg-[#212121] p-4 text-accent-acontent rounded-3xl space-y-4 max-h-[100px] overflow-y-scroll">
           {addressBook.map(({ address, description }, index) => (
             <li
               key={`${address}-${index}`}
