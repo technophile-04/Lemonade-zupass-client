@@ -40,7 +40,7 @@ export const RainbowKitCustomConnectButton = () => {
             {(() => {
               if (!connected) {
                 return (
-                  <button className="btn btn-primary bg-opacity-25  btn-sm" onClick={openConnectModal} type="button">
+                  <button className="btn btn-primary btn-outline btn-sm" onClick={openConnectModal} type="button">
                     Connect Wallet
                   </button>
                 );
@@ -102,7 +102,7 @@ export const RainbowKitCustomConnectButton = () => {
                     </label>
                     <ul
                       tabIndex={0}
-                      className="dropdown-content menu z-[2] p-2 mt-2 shadow-center shadow-accent bg-base-300 rounded-box gap-1"
+                      className="dropdown-content text-white menu z-[2] p-2 mt-2 shadow-center shadow-accent bg-base-300 rounded-box gap-1"
                     >
                       <li>
                         {addressCopied ? (
