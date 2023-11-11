@@ -113,7 +113,7 @@ const Home: NextPage = () => {
       <MetaHeader />
       <div className="flex items-center flex-col p-10 space-y-8 rounded-2xl">
         {isSigningMessageSuccessfull && isConnected ? (
-          <div className="bg-base-100 flex flex-col p-5 rounded-2xl min-h-[75vh] w-2/4 space-y-6">
+          <div className="bg-base-100 flex flex-col p-5 rounded-2xl w-11/12 min-h-[50vh] md:min-h-[75vh] xl:w-2/4 space-y-6">
             <div className="bg-base-300 p-5 rounded-2xl">
               <div>
                 <h1 className="text-3xl m-0 text-white font-semibold">Subscription</h1>
@@ -153,7 +153,7 @@ const Home: NextPage = () => {
             )}
           </div>
         ) : (
-          <div className="bg-base-100 flex items-center justify-center flex-col p-5 rounded-2xl min-h-[75vh] w-2/4 space-y-4">
+          <div className="bg-base-100 flex items-center justify-center flex-col p-5 rounded-2xl w-11/12 min-h-[50vh] md:min-h-[75vh] xl:w-2/4 space-y-4">
             <div className="px-5 text-white">
               <h1 className="text-center mb-4">
                 <span className="block text-2xl mb-2">Welcome to</span>

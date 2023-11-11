@@ -72,8 +72,8 @@ const Verify: NextPage = () => {
   const [inputAddress, setInputAddress] = useState("");
   const proof = query && query.proof && JSON.parse(decodeURIComponent(query.proof as string));
   return (
-    <div className="flex items-center flex-col p-10 space-y-8">
-      <div className="bg-base-100 flex items-center flex-col p-5 rounded-2xl">
+    <div className="flex items-center flex-col p-10 space-y-8 rounded-2xl">
+      <div className="bg-base-100 flex flex-col justify-center items-center p-5 rounded-2xl w-4/5 md:min-h-[75vh] xl:w-2/4 space-y-6">
         <div className="px-5 text-white">
           <h1 className="text-center mb-4">
             <span className="block text-2xl mb-2">Welcome to</span>
@@ -82,55 +82,57 @@ const Verify: NextPage = () => {
           </h1>
         </div>
         <div className="flex flex-col space-y-4">
-          <select
-            className="select select-primary select-bordered w-full max-w-xs text-primary"
-            value={zuPassType}
-            onChange={e => setZuPassType(e.target.value)}
-          >
-            <option disabled value={""}>
-              Select Zupass Type
-            </option>
-            <option value={"nft"}>NFT</option>
-            <option value={"event"}>Event</option>
-          </select>
-          <div className="flex flex-col">
-            {zuPassType === "nft" ? (
-              <AddressInput onChange={setInputAddress} value={inputAddress} placeholder="Contract address" />
-            ) : zuPassType === "event" ? (
-              <select className="select select-bordered w-full max-w-xs">
-                <option disabled selected>
-                  Select Event
-                </option>
-                <option value={"Lemonade"}>Lemonade event</option>
-              </select>
-            ) : null}
-          </div>
           {!proof ? (
-            <button
-              className={`btn btn-primary btn-outline mt-4 ${!zuPassType ? "disabled" : ""}`}
-              disabled={!zuPassType}
-              onClick={() => {
-                if (zuPassType === "nft") {
-                  const ticketName = "Holder";
-                  const nftProductId = uuidv5(ticketName, uuidNamespace);
-                  const nftEventId = uuidv5(mainnet.id.toString() + inputAddress, uuidNamespace);
+            <>
+              <select
+                className="select select-primary select-bordered w-full max-w-xs text-primary"
+                value={zuPassType}
+                onChange={e => setZuPassType(e.target.value)}
+              >
+                <option disabled value={""}>
+                  Select Zupass Type
+                </option>
+                <option value={"nft"}>NFT</option>
+                <option value={"event"}>Event</option>
+              </select>
+              <div className="flex flex-col">
+                {zuPassType === "nft" ? (
+                  <AddressInput onChange={setInputAddress} value={inputAddress} placeholder="Contract address" />
+                ) : zuPassType === "event" ? (
+                  <select className="select select-bordered w-full max-w-xs">
+                    <option disabled selected>
+                      Select Event
+                    </option>
+                    <option value={"Lemonade"}>Lemonade event</option>
+                  </select>
+                ) : null}
+              </div>
+              <button
+                className={`btn btn-primary btn-outline mt-4 ${!zuPassType ? "disabled" : ""}`}
+                disabled={!zuPassType}
+                onClick={() => {
+                  if (zuPassType === "nft") {
+                    const ticketName = "Holder";
+                    const nftProductId = uuidv5(ticketName, uuidNamespace);
+                    const nftEventId = uuidv5(mainnet.id.toString() + inputAddress, uuidNamespace);
 
-                  const args = constructEventPCDArgs(nftEventId, nftProductId);
-                  redirectToZuPass(args);
-                } else {
-                  const lemonadeEventId = "654e34279c2dd8ebfdb56f59";
-                  const lemonadeTicketTypeId = "654e343d9c2dd8ebfdb56f71";
-                  const ticketEventId = uuidv5(lemonadeEventId, uuidNamespace);
+                    const args = constructEventPCDArgs(nftEventId, nftProductId);
+                    redirectToZuPass(args);
+                  } else {
+                    const lemonadeEventId = "654e34279c2dd8ebfdb56f59";
+                    const lemonadeTicketTypeId = "654e343d9c2dd8ebfdb56f71";
+                    const ticketEventId = uuidv5(lemonadeEventId, uuidNamespace);
 
-                  const ticketProductId = uuidv5(lemonadeTicketTypeId, uuidNamespace);
-                  const args = constructEventPCDArgs(ticketEventId, ticketProductId);
+                    const ticketProductId = uuidv5(lemonadeTicketTypeId, uuidNamespace);
+                    const args = constructEventPCDArgs(ticketEventId, ticketProductId);
 
-                  redirectToZuPass(args);
-                }
-              }}
-            >
-              Get Proof
-            </button>
+                    redirectToZuPass(args);
+                  }
+                }}
+              >
+                Get Proof
+              </button>
+            </>
           ) : (
             <button
               className="btn btn-primary btn-outline"
