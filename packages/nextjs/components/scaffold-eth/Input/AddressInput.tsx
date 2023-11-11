@@ -7,6 +7,7 @@ import { BookOpenIcon } from "@heroicons/react/24/outline";
 import { CommonInputProps, InputBase } from "~~/components/scaffold-eth";
 
 const addressBook = [
+  { address: "0xE42caD6fC883877A76A26A16ed92444ab177E306", description: "The Merge" },
   { address: "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d", description: "Bored Ape" },
   { address: "0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb", description: "Crypto Punks" },
   { address: "0xad50c71f9937562b8b90d487ada21d9e2e03652d", description: "Azuki" },
