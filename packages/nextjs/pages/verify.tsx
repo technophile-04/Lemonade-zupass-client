@@ -8,7 +8,6 @@ import { NextPage } from "next";
 import { v5 as uuidv5 } from "uuid";
 import { mainnet } from "wagmi";
 import { AddressInput } from "~~/components/scaffold-eth";
-// import { mainnet } from "wagmi";
 import { constructZupassPcdGetRequestUrl, isLemonadePublicKey } from "~~/utils";
 import { notification } from "~~/utils/scaffold-eth";
 
@@ -119,8 +118,8 @@ const Verify: NextPage = () => {
                     const args = constructEventPCDArgs(nftEventId, nftProductId);
                     redirectToZuPass(args);
                   } else {
-                    const lemonadeEventId = "654e34279c2dd8ebfdb56f59";
-                    const lemonadeTicketTypeId = "654e343d9c2dd8ebfdb56f71";
+                    const lemonadeEventId = "651a604db2a69fb20921d212";
+                    const lemonadeTicketTypeId = "6523e69fdb09a89db2be89ab";
                     const ticketEventId = uuidv5(lemonadeEventId, uuidNamespace);
 
                     const ticketProductId = uuidv5(lemonadeTicketTypeId, uuidNamespace);
