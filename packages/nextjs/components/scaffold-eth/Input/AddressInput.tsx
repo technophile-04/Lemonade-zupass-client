@@ -124,6 +124,7 @@ export const AddressInput = ({
                 handleChange(address);
               }}
             >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 alt="suggested address"
                 className="!rounded-full"
