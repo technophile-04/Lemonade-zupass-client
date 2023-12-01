@@ -2,6 +2,8 @@
 
 This is the client for Lemonade Zupass, it helps you generate a feed subscription which can be added to zupass.org. It also helps verifying the NFT and Event ticket on frontend.
 
+Code for feed server for the issuance of ticket PCDs for your NFTs and tickets at Lemonade can be found [here](https://github.com/lemonadesocial/lemonade-zupass)
+
 ## Requirements
 
 Before you begin, you need to install the following tools:

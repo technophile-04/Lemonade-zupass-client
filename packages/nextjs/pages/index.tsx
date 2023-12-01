@@ -39,6 +39,8 @@ const Home: NextPage = () => {
   const [subscriptionURL, setSubscriptionURL] = useState("");
   const [inputAddress, setInputAddress] = useState("");
 
+  console.log("The messsage to sign is", messageToSign);
+
   const {
     data: signMessageData,
     error,
@@ -91,6 +93,7 @@ const Home: NextPage = () => {
         const response = await fetch(`${API_BASE_URL}/message?account=${address}&pcd=${base64EncodedPCD}`);
         const resJson = await response.json();
         setMessageToSign(resJson.message);
+        console.log("resJson", resJson);
         notification.success(
           <>
             <p className="font-bold m-0">Proof received!</p>
